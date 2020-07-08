@@ -5,6 +5,7 @@ from arp_kic.forms import *
 
 # Create your views here.
 def is_at_kic(request):
+    suubmit_text = "確認する"
     if request.method == "POST":   
         human = Human.objects.get(name=request.POST["name"])
         human.is_at_kic = False
@@ -33,6 +34,8 @@ def is_at_kic(request):
             'arp_kic/search.html',
             {
                 'form':form, 
+                'submit_text':submit_text,
+                
             }
         )
 
