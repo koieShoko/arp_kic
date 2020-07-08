@@ -25,12 +25,12 @@ class device_searcher():
         import time
         when = time.time()
         self.reset_mac_address_list()
-        self.mac_address_list[when]={}
+        self.mac_address_list[when]=[]
         import re
         for string in arp_rows:
             result = re.match(pattern, string)
             if result:
-                self.mac_address_list[when]=string
+                self.mac_address_list[when].append(string)
     def register(self):
         django.setup()
         from arp_kic.models import Human, Device, Arp_log
