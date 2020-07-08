@@ -7,6 +7,7 @@ import django
 class device_searcher():
     def __init__(self):
         self.mac_address_list = {}
+        self.latest_time = None 
     def start(self):
         sys.path.append('./')
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
@@ -24,6 +25,7 @@ class device_searcher():
         pattern = '..:..:..:..:..:..'
         import time
         when = time.time()
+        self.latest_time = when
         self.reset_mac_address_list()
         self.mac_address_list[when]=[]
         import re
@@ -34,7 +36,7 @@ class device_searcher():
     def register(self):
         django.setup()
         from arp_kic.models import Human, Device, Arp_log
-        mac_addresses = self.mac_address_list.values()
+        mac_addresses = self.mac_address_list[self.latest_time]
         for mac_address in mac_addresses:
             device = Device.objects.get_or_create(mac_address = mac_address)
             from django.utils import timezone
