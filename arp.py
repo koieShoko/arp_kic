@@ -21,6 +21,8 @@ class device_searcher():
         import subprocess
         arp_byte  = subprocess.check_output(['arp',"-a"])
         arp_uni   = arp_byte.decode(encoding_scheme)
+        ping_broadcast =  subprocess.run(['ping','172.16.255.255','-b','-c' ,'2', '-s', '1' ])
+        print(ping_broadcast)
         arp_rows  = [ row for  row in arp_uni.split(" ")]
         pattern = '..:..:..:..:..:..'
         import time
