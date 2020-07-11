@@ -16,7 +16,7 @@ def is_at_kic(request):
         for device in devicies:
             latest_log = Arp_log.objects.filter(device = device).order_by("-datetime")[0]
             if not(latest_log):
-                return render(request, 'arp_kic/is_at_kic.html',{"human":human,})
+                continue
             from datetime import datetime,timedelta
             from django.utils import timezone
             now   = timezone.now()
